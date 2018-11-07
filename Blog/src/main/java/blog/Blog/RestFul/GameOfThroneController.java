@@ -1,4 +1,4 @@
-package blog.Blog;
+package blog.Blog.RestFul;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public class GameOfThroneController {
 
     private List<Solider> soliderlist = new ArrayList<>(Arrays.asList(new Solider("jhon Snow", 123),new Solider("janous",321)));
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/test1", method = RequestMethod.GET)
     public String hello(@RequestParam(defaultValue = "stranger")String name){
         return "hello "+name+" do you pledge your life to the night watch!";
     }

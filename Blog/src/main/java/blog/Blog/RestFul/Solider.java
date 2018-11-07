@@ -1,4 +1,4 @@
-package blog.Blog;
+package blog.Blog.RestFul;
 
 public class Solider {
 
