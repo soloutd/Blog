@@ -42,6 +42,7 @@ public class HomePageController {
     public String registerUserAccount(@ModelAttribute("user") @Valid User user,
                                       BindingResult result){
 
+        
         if (result.hasErrors()){
             return "registration";
         }
