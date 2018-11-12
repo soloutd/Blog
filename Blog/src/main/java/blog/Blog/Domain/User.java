@@ -4,13 +4,11 @@ import blog.Blog.Constrain.ValidPassword;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 @Entity
 @DynamicUpdate
@@ -34,19 +32,20 @@ public class User {
     @ValidPassword
     private String confirmPassword;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public User() {
 
     }
 
-    public User(@NotEmpty(message = "name can't be empty, Fucker!") String name,
-                @Email @NotEmpty(message = "email can't be empty") String email,
-                @Range(min = 5, max = 10) @NotEmpty String password,
-                @NotEmpty String confirmPassword) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public long getId() {
