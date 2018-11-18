@@ -12,21 +12,53 @@ public class Post {
     @GeneratedValue
     private long id;
 
-    @NotEmpty
+    @NotEmpty(message = "article Title can'be be Empty")
     private String article;
 
     @Lob
-    @NotEmpty
+    @NotEmpty(message = "the body of your article can't be Empty")
     private String body;
 
     @Temporal(TemporalType.DATE)
     private Date date;
-
+    private String autor;
     private String flag;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     Set<Comment> commentSet;
    // private String report;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+
+    public void addComment(Comment comment) {
+        commentSet.add(comment);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
+    }
 
     public long getId() {
         return id;
@@ -66,5 +98,18 @@ public class Post {
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", article='" + article + '\'' +
+                ", body='" + body + '\'' +
+               // ", date=" + date +
+                ", autor='" + autor + '\'' +
+                ", flag='" + flag + '\'' +
+              //  ", commentSet=" + commentSet +
+                '}';
     }
 }

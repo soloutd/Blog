@@ -4,6 +4,10 @@ import blog.Blog.Domain.User;
 
 public interface UserService {
 
-    void saveuser(User user);
+
     User getUserById(long id);
+
+    User findUserByEmail(String email);
+
+    void saveUser(User user);
 }

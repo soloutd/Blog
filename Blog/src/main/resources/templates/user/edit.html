@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{common/masterlayout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage/index.css}"/>
+    <title>Inventory Manager - Edit Product</title>
+</head>
+<body>
+
+<th:block layout:fragment="content">
+
+    <div style="position: absolute;left: 220px;right: 50px;top: 70px;">
+        <form id="editArticleForm" method="post" action="/post/edit" th:object="${post}">
+            <fieldset>
+                <legend>Editing - [[${post.article}]]</legend>
+                <input type="hidden" name="id" th:value="${post.id}"/>
+                <!--<input type="hidden" name="date" th:value="${post.date}"/>-->
+
+                <div class="form-group">
+                    <label>Preview Article</label>
+                    <input id="article" name="article" type="text" class="form-control"
+                           th:value="${post.article}">
+                </div>
+                <div class="form-group">
+                    <label>Body</label>
+                    <input id="body" name="body" type="text" class="form-control" th:value="${post.body}">
+                </div>
+                <div style="float:right;">
+                    <a href="/home" class="btn btn-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnSubmit" type="submit" class="btn btn-success">Update</button>&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/posts/delete/{id}'(id=${post.id})}" class="btn btn-danger">Delete</a>
+    </div>
+            </fieldset>
+        </form>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer"></th:block>
+</body>
+</html>

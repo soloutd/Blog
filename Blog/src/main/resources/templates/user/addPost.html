@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{common/masterlayout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage/index.css}"/>
+    <title>Blog - New Article</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div style="position: absolute;left: 220px;right: 50px;top: 50px;">
+        <br>
+        <form id="newArticleForm" method="post" action="/user/add" th:object="${post}">
+            <fieldset>
+                <legend>New Article</legend>
+                <input type="hidden" name="id" th:value="${post.id}" />
+
+                <div class="form-group">
+                    <label>Article: </label>
+                    <input id="article" name="article" type="text" class="form-control" th:value="${post.article}">
+                </div>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('article')}? 'has-error':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('article')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Body: </label>
+                    <input id="body" name="body" type="text" class="form-control" th:value="${post.body}">
+                </div>
+                <div class="form-group"
+                     th:classappend="${#fields.hasErrors('body')}? 'has-error':''">
+                    <p class="error-message"
+                       th:each="error: ${#fields.errors('body')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div style="float:right;">
+                    <a href="/home" class="btn btn-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnSubmit" type="submit" class="btn btn-success">Save</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</th:block>
+
+</body>
+
+<th:block layout:fragment="footer"></th:block>
+</html>

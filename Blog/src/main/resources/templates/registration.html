@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{common/masterlayout}">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -13,6 +15,7 @@
     <title>Registration</title>
 </head>
 <body>
+<th:block layout:fragment="content">
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -131,6 +134,8 @@
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-
+</th:block>
 </body>
+
+<th:block layout:fragment="footer"></th:block>
 </html>
