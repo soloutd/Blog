@@ -21,7 +21,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void savePost(Post post) {
         post.setDate(new Date());
-        post.setFlag("2");
+        post.setFlag("Pending");
         postRepository.save(post);
     }
 
@@ -29,16 +29,34 @@ public class PostServiceImpl implements PostService {
     public void update(Post post) {
         /*Post post1 = getpostById(id);
         post.setDate(post1.getDate());*/
-        post.setDate(new Date());
-        post.setFlag("2");
-        postRepository.save(post);
-    }
+
+        if(post.getFlag()!="approved"){
+            post.setFlag("approved");
+            postRepository.save(post);
+        }else {
+            post.setDate(new Date());
+            //  post.setFlag("approved");
+
+            postRepository.save(post);
+        }
+        }
+
 
 
     @Override
     public List<Post> getpostlistafterAproval() {
 
         return postRepository.findAllAfterApprovl();
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    @Override
+    public List<Post> getAllPosts_on_pending() {
+        return postRepository.findallonPending();
     }
 
     @Override
@@ -50,7 +68,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deleteById(long id) {
         Post post = postRepository.getOne(id);
-        post.setFlag("0");
+        post.setFlag("Deleted");
         postRepository.save(post);
     }
 }

@@ -5,11 +5,13 @@ import blog.Blog.Domain.Dto.PostDto;
 import blog.Blog.Domain.Post;
 
 /*
-* @utor Solomon
+* @uthor Solomon
 *
 * Date Nov 15, 2018
 *
 * Factory for post
+*
+*
 * */
 public class PostFactory {
 

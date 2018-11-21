@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
       lang="en"
       layout:decorate="~{common/masterlayout}">
 <head>
@@ -12,8 +14,12 @@
     <th:block layout:fragment="content">
         <div>
             <span style="font-size: 1.5em">MUM BLOG</span>
-            <span style="float:right;">
+
+            <span style="float:right;" >
                     <a class="btn btn-outline-success btn-lg" href="/user/add">Add New Article</a>
+            </span>
+            <span style="float:right;">
+                    <a class="btn btn-outline-success btn-lg" href="/admin/">Admin Home</a>
             </span>
         </div>
         <p>&nbsp;</p>

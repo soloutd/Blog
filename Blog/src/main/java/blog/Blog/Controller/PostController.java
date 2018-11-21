@@ -36,11 +36,13 @@ public class PostController {
     }
 
     @PostMapping(value = "/user/add")
-    public String addP(@ModelAttribute("post") @Valid Post post, BindingResult result,
+    public String addP(@ModelAttribute("post") @Valid PostDto postDto, BindingResult result,
                        Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        Post post = PostFactory.getInstance().createPostFromDto(postDto);
+
         post.setUser(user);
         post.setAutor(user.getName());
         if (result.hasErrors()) {
@@ -50,13 +52,19 @@ public class PostController {
         }
 
         postService.savePost(post);
-        return "redirect:/";
+        return "redirect:/post/"+ post.getId();
     }
 
 
-    @PostMapping(value = "/post/edit")
+    /*@PostMapping(value = "/post/edit")
     public String edit1(@ModelAttribute("post") PostDto postDto, BindingResult result,
                         Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("errors", result.getAllErrors());
+            model.addAttribute("post", CreatedPost);
+            return "user/edit";
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
 
@@ -65,19 +73,30 @@ public class PostController {
         CreatedPost.setUser(user);
         System.out.println("-----------00000000000000000000000000000000000" + user);
         CreatedPost.setAutor(user.getName());
-        if (result.hasErrors()) {
-            model.addAttribute("errors", result.getAllErrors());
-            //System.out.println("ddddddddddddddddddddddddddddd ---   "+result.getAllErrors().toString());
-            //System.out.println("999999999999999999999"+"         "+post.getDate());
-            model.addAttribute("post", CreatedPost);
-            return "user/edit";
-        }
       //  postService.savePost(post);
         postService.update(CreatedPost);
         System.out.println("------------------------------------------3333333333333333333333333333333----" + CreatedPost.getId()+"-----"+postDto.getDate());
 
         return "redirect:/post/" + CreatedPost.getId();
 
+    }*/
+
+    @PostMapping(value = "/post/edit")
+    public String editPost(@ModelAttribute("post") Post post, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            model.addAttribute("post", post);
+            return "user/edit";
+        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+        /*if(!(user.getEmail().equals(post.equals(post.getUser().getEmail())))){
+            return "redirect:/errors/403";
+        }*/
+        post.setAutor(user.getName());
+        postService.update(post);
+        return "redirect:/post/" + post.getId();
     }
 
 
@@ -89,13 +108,28 @@ public class PostController {
         return "user/detail";
     }
 
+    /*
+    *
+    * check if the user is the same with the post owner
+    * if yes let him edit
+    * otherwise should redirect him to access denied page 403 error
+    *
+    * */
     @GetMapping(value = "/post/edit/{id}")
     public String edit(@PathVariable long id, Model model) {
         Post post = postService.getpostById(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+        if(!(post.getUser().getEmail().equals(user.getEmail()))){
+            return "redirect:/errors/403";
+        }
+
         if (post != null) {
             model.addAttribute("post", post);
             return "user/edit";
         }
+
         return "home";
     }
 

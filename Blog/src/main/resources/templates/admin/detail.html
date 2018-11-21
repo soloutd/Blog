@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{common/masterlayout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/masterlayout.css}"/>
+    <title>Blog - Browse List of Articles</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div>
+        <span style="float:right;">
+            <a class="btn btn-outline-success btn-lg"
+               th:href="@{'/admin/edit/{id}'(id=${post.id})}">Approve</a>
+            <a th:href="@{'/admin/delete/{id}'(id=${post.id})}" class="btn btn-danger">Delete</a>
+            </span>
+
+    </div>
+    <h3>[[${post.article}]]</h3>
+    <br>
+    <p>By [[${post.autor}]] | [[${post.date}]] | [[${#lists.size(post.commentSet)}]] comments</p>
+
+    <br>
+    <h4>[[${post.body}]]</h4>
+
+    <div style="left: 220px;right: 50px;top: 50px;">
+        <br>
+        <!--<form id="newCommentForm" method="post" th:action="@{'/comment/{id}'(id=${post.id})}" th:object="${comment}">
+            <fieldset>
+                <legend>Add comment</legend>
+                <input type="hidden" name="id" th:value="${comment.id}"/>
+                <div class="form-group">
+                    <input id="text" name="text" type="text" class="form-control" th:value="${comment.text}">
+                </div>
+                <div style="float:right;">
+                    <button id="btnSubmit" type="submit" class="btn btn-success">Post</button>
+                </div>
+            </fieldset>
+        </form>-->
+        <table class="table">
+            <tbody>
+            <tr th:each="i : ${#numbers.sequence(post.commentSet.size() - 1, 0, -1)}">
+                <td th:text="${post.commentSet[i].text}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

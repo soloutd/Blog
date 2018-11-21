@@ -49,9 +49,14 @@ public class LoginController {
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
         }
+        if(!(user.getConfirmPassword().equals(user.getPassword()))){
+            System.out.println("errrrrrrrrrrrrrrrrrrrrrroooooooooooooooo of pass word"+user.getPassword()+"-------"+user.getConfirmPassword());
+            bindingResult.rejectValue("password","error.password", "your passWord doesn't much!");
+        }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
+
             userService.saveUser(user);
             modelAndView.setViewName("login");
 

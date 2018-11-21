@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      layout:decorate="~{common/masterlayout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Home</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/masterlayout.css}"/>
+
+    <title>Blog - Browse List of Articles</title>
 </head>
 <body>
 
-<h1>Admin home... </h1>
+<th:block layout:fragment="content">
+    <div>
+        <span style="font-size: 1.5em">MUM BLOG</span>
+        <span style="float:right;">
+                    <a class="btn btn-outline-success btn-lg" href="/admin/">Admin Home</a>
+            </span><span style="float:right;">
+                    <a class="btn btn-outline-success btn-lg" href="/admin/pending">Pending Posts</a>
+            </span>
+    </div>
+    <p>&nbsp;</p>
+    <table class="table table-hover">
+        <tbody>
+        <tr  th:each="post : ${posts}" th:onclick="@{document.location='/admin/req/{id}'(id = ${post.id})}">
+            <!--/*@thymesVar id="article" type="blog.Blog.Domain.Post"*/-->
+            <th th:text="${post.article}"></th>
+            <td th:text="${post.autor}"></td>
+            <td th:text="${post.flag}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</th:block>
+
+
+
 </body>
+
+
+<th:block layout:fragment="footer"></th:block>
 </html>
