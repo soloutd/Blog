@@ -26,6 +26,7 @@ public class PostController {
 
     @Autowired
     PostService postService;
+
     @Autowired
     UserService userService;
 
