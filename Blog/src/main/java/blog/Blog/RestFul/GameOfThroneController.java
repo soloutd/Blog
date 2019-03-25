@@ -14,7 +14,6 @@ public class GameOfThroneController {
     public String hello(@RequestParam(defaultValue = "stranger")String name){
         return "hello "+name+" do you pledge your life to the night watch!";
     }
-
     @RequestMapping(value = "/solider", method = RequestMethod.GET)
     public List<Solider> list(){
         return soliderlist;
