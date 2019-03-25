@@ -2,7 +2,6 @@ package blog.Blog.Domain.Dto;
 
 import blog.Blog.Domain.Comment;
 import blog.Blog.Domain.User;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;

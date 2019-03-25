@@ -16,6 +16,7 @@ public class Comment {
     private Post post;
 
     public long getId() {
+
         return id;
     }
 
